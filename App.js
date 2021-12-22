@@ -1,14 +1,37 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-//import AlertExample from './components/AlertExample'
-import ModelExample from './components/ModelExample'
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreen from './screens/HomeScreen';
+import AboutScreen from './screens/AboutScreen';
 
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-
-    //<AlertExample/>
-    <ModelExample />
+    <NavigationContainer>
+      <Stack.Navigator initalRouteName='Home'
+        screenOptions={{
+          headerStyle: {
+            backgroundColor: '#FFB6C1',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
+        <Stack.Screen name="Home"
+          component={HomeScreen}
+          options={{ title: 'หน้าหลัก' }}
+        />
+        <Stack.Screen
+          name="About"
+          component={AboutScreen}
+          options={{ title: 'เกี่ยวกับเรา' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 

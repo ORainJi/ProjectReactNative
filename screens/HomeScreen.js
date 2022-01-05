@@ -1,13 +1,18 @@
 import React from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 
 const HomeScreen = ({navigation}) => {
     return (
         <View style={styles.container}>
+            <Ionicons name='home' size={30} color='red'/>
             <Text>หน้าหลัก</Text>
             <Button
                 title="Go to About"
-                onPress={() => navigation.navigate('About')}
+                onPress={() => navigation.navigate('About',{
+                    email:'ninrat@gmail.com'
+                    }
+                    )}
             />
         </View>
     )

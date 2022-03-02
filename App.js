@@ -1,40 +1,98 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import { Text, View, Image } from 'react-native';
+
+import {NavigationContainer} from '@react-navigation/native'
+import {createStackNavigator} from '@react-navigation/stack'
+import {createDrawerNavigator} from '@react-navigation/drawer';
+
 import HomeScreen from './screens/HomeScreen';
 import AboutScreen from './screens/AboutScreen';
-import FirstPage from './screens/FirstPage';
-import SecondPage from './screens/SecondPage'
+import ProductScreen from './screens/ProductScreen';
+import DetailScreen from './screens/DetailScreen';
+import MenuScreen from './screens/MenuScreen';
+import RegisterScreen from './screens/RegisterScreen';
+import LoginScreen from './screens/LoginScreen';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
 
-const App = () => {
+function HomeStack() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initalRouteName='Home'
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#4682B4',
+        },
+        headerTintColor: '#FFE4E1',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+        },
+      }}>
+      <Stack.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{title: 'เมนูหลัก'}}
+      />
+      <Stack.Screen
+        name="About"
+        component={AboutScreen}
+        options={{title: 'เกี่ยวกับเรา'}}
+      />
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={{title: 'ลงทะเบียน'}}
+      />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{title: 'เข้าสู่ระบบ'}}
+      />
+    </Stack.Navigator>
+  );
+};
+
+function ProductStack(){
+  return(
+    <Stack.Navigator 
+        initialRouteName='Home'
         screenOptions={{
           headerStyle: {
-            backgroundColor: '#FFB6C1',
+            backgroundColor: '#4682B4',
           },
-          headerTintColor: '#fff',
+          headerTintColor: '#FFE4E1',
           headerTitleStyle: {
             fontWeight: 'bold',
           },
         }}
       >
-        <Stack.Screen name="First Page"
-          component={FirstPage}
-          options={{ title: 'First Page' }}
+        <Stack.Screen 
+          name="Product" 
+          component={ProductScreen}
+          options={{title: 'สินค้า'}}
         />
         <Stack.Screen
-          name="Second Page"
-          component={SecondPage}
-          options={{ title: 'Second Page' }}
+          name="Detail"
+          component={DetailScreen}
+          options={{title: 'รายละเอียด'}}
         />
       </Stack.Navigator>
-    </NavigationContainer>
   )
 }
 
-export default App
+function App (){
+  return (
+    <NavigationContainer>
+      <Drawer.Navigator
+        initialRouteName='Home'
+        drawerPositon='left'
+        drawerContent={(props) => <MenuScreen {...props}/>}>
+        <Drawer.Screen name='HomeStack' component={HomeStack} />
+        <Drawer.Screen name='ProductStack' component={ProductStack} />
+      </Drawer.Navigator>
+    </NavigationContainer>
+  );
+}
+
+export default App;
